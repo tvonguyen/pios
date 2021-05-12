@@ -6,7 +6,11 @@ OBJDUMP := objdump
 OBJCOPY := aarch64-none-elf-objcopy
 CONFIGS := -DCONFIG_HEAP_SIZE=4096
 
+<<<<<<< HEAD
 CFLAGS := -O0 -ffreestanding -fno-pie -fno-stack-protector -g3 -Wall $(CONFIGS) -mgeneral-regs-only
+=======
+CFLAGS := -O0 -ffreestanding -fno-pie -fno-stack-protector -g3 -mcpu=cortex-a53+nofp -Wall $(CONFIGS)
+>>>>>>> dff4d40f83fe52e443a33f3c715405cc974a8b9c
 
 
 ODIR = obj
@@ -51,7 +55,7 @@ clean:
 
 debug:
 	screen -S qemu -d -m qemu-system-aarch64 -machine raspi3 -kernel kernel8.img -hda rootfs.img -S -s -serial null -serial stdio -monitor none -nographic -k en-us 
-	TERM=xterm aarch64-none-elf-gdb -x gdb_init_prot_mode.txt
+	TERM=xterm aarch64-none-elf-gdb -x gdb_init_prot_mode.txt && killall qemu-system-aarch64
 
 run:
 	qemu-system-aarch64 -machine raspi3 -kernel kernel8.img -hda rootfs.img -serial null -serial stdio -monitor none -nographic -k en-us
